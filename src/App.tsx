@@ -6,6 +6,8 @@ import './App.css';
 import InitSettings from './components/InitSettings';
 import Game from './components/Game';
 import { MaterialSymbol } from 'react-material-symbols';
+import React from 'react';
+import { CashState } from './types/CashState';
 
 function App() {
   const [gameActivated, setGameActivated] = useState(false);
@@ -15,12 +17,12 @@ function App() {
     playersWallet: 300
   });
   
-  function handlePlayClicked(newCashState) {
+  function handlePlayClicked(newCashState: CashState) {
     setGameActivated((_) => true);
     setCashState((_) => newCashState);
   }
 
-  function handleAfterSpinResultChanged(result) {
+  function handleAfterSpinResultChanged(result: {machine: number, playersWallet: number}) {
     setCashState((prevState) => ({
       ...prevState,
       machine: result.machine,
