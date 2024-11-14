@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import InitSettings from './components/InitSettings';
 import Game from './components/Game';
+import { MaterialSymbol } from 'react-material-symbols';
 
 function App() {
   const [gameActivated, setGameActivated] = useState(false);
@@ -32,11 +33,13 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <header className="app-header">
-        Matej's Fruit Machine
+    <div className="app h-screen flex flex-col items-center justify-center">
+      <header className="app-header text-center p-6 text-3xl text-purple-500 m-4 bg-gray-100 rounded-xl flex items-center gap-2">
+        <MaterialSymbol icon="nutrition"/>
+        <span>Matej's Fruit Machine</span>
+        <MaterialSymbol icon="nutrition"/>
       </header>
-      <div className="content">
+      <div className="content min-w-96 max-w-lg h-[27.25rem] p-4 rounded-xl bg-gray-100">
         {!gameActivated && <InitSettings cashState={cashState} playClicked={handlePlayClicked}></InitSettings>}
         {gameActivated && 
           <Game

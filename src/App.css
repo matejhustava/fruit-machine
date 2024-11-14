@@ -1,84 +1,18 @@
 .app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  background-color: #D9AFD9;
   background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-}
-
-.app-header {
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #ae68ae;
-}
-
-.content {
-  background-color: rgb(242, 242, 242);
-  padding: 1rem;
-  width: 30rem;
-  height: 30rem;
-  border-radius: 1rem;
-}
-
-.init-settings,
-.game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-label {
-  padding-top: 1rem;
-  color: #ae68ae;
 }
 
 input {
   width: 10rem;
-  margin-top: 0.5rem;
   font-size: 2rem;
-  padding: 0.5rem;
+  padding-left: 0.6rem;
   border-radius: 0.5rem;
   border: none;
-  color: #ae68ae;
+  color: rgb(168, 85, 247);
 }
 
 input:focus{
-  outline-color: #ae68ae;
-}
-
-.actions {
-  padding: 2rem;
-}
-
-button {
-  font-size: 1rem;
-  padding: 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  cursor: pointer;
-  margin: 0 auto 1rem auto;
-}
-
-button.primary {
-  color: #fff;
-  background-color: #ae68ae;
-}
-
-button.secondary {
-  color: #ae68ae;
-  background-color: #fff;
-}
-
-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  outline-color: rgb(168, 85, 247);
 }
 
 .machine {
@@ -86,7 +20,8 @@ button:disabled {
   border: 1px solid #ccc;
   display: flex;
   gap: 0.5rem;
-  margin: 3rem 0 1rem;
+  margin: 3rem 0;
+  border-radius: 1rem;
 }
 
 .slot {

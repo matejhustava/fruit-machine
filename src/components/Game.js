@@ -17,7 +17,7 @@ export default function Game({machineCashAmount, spinCost, playerWalletCashAmoun
     }
 
     function getRandomColorNumber() {
-        return Math.round(Math.random() * (1 - 4) + 4);
+        return Math.floor(Math.random() * (1 - 4) + 4);
     }
 
     function evaluateResult(result) {
@@ -83,19 +83,26 @@ export default function Game({machineCashAmount, spinCost, playerWalletCashAmoun
         return false;
     }
 
-    return <div className="game">
-        <label>JACKPOT: <b>{machineCashAmount}</b> NOK</label>
-        <label>PLAYERS WALLET: <b>{playerWalletCashAmount}</b> NOK</label>
-        <label>SPIN COST: <b>{spinCost}</b> NOK</label>
-        <label>FREE SPINS: <b>{freeSpins}</b></label>
+    return <div className="game flex flex-col items-center">
+        <label className="text-purple-500">JACKPOT: <b>{machineCashAmount}</b> NOK</label>
+        <label className="text-purple-500">PLAYERS WALLET: <b>{playerWalletCashAmount}</b> NOK</label>
+        <label className="text-purple-500">SPIN COST: <b>{spinCost}</b> NOK</label>
+        <label className="text-purple-500">FREE SPINS: <b>{freeSpins}</b></label>
 
         <div className='machine'>
             {result.map((r, index) => <div key={index} className={'slot color' + r}></div>)}
         </div>
 
-        <div className="actions">
-            <button onClick={handleSpin} className='primary' disabled={playerWalletCashAmount - spinCost < 0}><MaterialSymbol icon="logout"/>Spin it!</button>
-            <button onClick={leaveMachineClicked} className='secondary'><MaterialSymbol icon="logout"/>Leave the machine</button>
+        <div className="actions pt-4v flex flex-col items-center gap-4">
+            <button
+                onClick={handleSpin}
+                className='flex flex-row gap-2 items-center p-4 rounded-xl bg-purple-500 text-white hover:bg-purple-600 disabled:bg-gray-300 disabled:cursor-not-allowed'
+                disabled={playerWalletCashAmount - spinCost < 0}
+            ><MaterialSymbol icon="play_arrow" size={25}/>Spin it!</button>
+            <button
+                onClick={leaveMachineClicked}
+                className='flex flex-row gap-2 items-center p-4 rounded-xl bg-white text-purple-500 cursor-pointer hover:bg-purple-100'
+            ><MaterialSymbol icon="logout" size={25}/>Leave the machine</button>
         </div>
         <ToastContainer
             position="top-right"
