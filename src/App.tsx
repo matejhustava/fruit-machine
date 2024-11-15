@@ -5,13 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import InitSettings from './components/InitSettings';
 import Game from './components/Game';
-import { MaterialSymbol } from 'react-material-symbols';
 import React from 'react';
-import { CashState } from './types/CashState';
+import { CashState } from './interfaces/CashState';
+import Header from './components/Header';
 
 function App() {
-  const [gameActivated, setGameActivated] = useState(false);
-  const [cashState, setCashState] = useState({
+  const [gameActivated, setGameActivated] = useState<boolean>(false);
+  const [cashState, setCashState] = useState<CashState>({
     machine: 10000,
     cost: 10,
     playersWallet: 300
@@ -31,26 +31,24 @@ function App() {
   }
   
   function handleLeaveGameClicked() {
-    setGameActivated(false);
+    setGameActivated(() => false);
   }
 
   return (
     <div className="app h-screen flex flex-col items-center justify-center">
-      <header className="app-header text-center p-6 text-3xl text-purple-500 m-4 bg-gray-100 rounded-xl flex items-center gap-2">
-        <MaterialSymbol icon="nutrition"/>
-        <span>Matej's Fruit Machine</span>
-        <MaterialSymbol icon="nutrition"/>
-      </header>
-      <div className="content min-w-96 max-w-lg h-[27.25rem] p-4 rounded-xl bg-gray-100">
-        {!gameActivated && <InitSettings cashState={cashState} playClicked={handlePlayClicked}></InitSettings>}
-        {gameActivated && 
-          <Game
-            machineCashAmount={cashState.machine}
-            spinCost={cashState.cost}
-            playerWalletCashAmount={cashState.playersWallet}
-            afterSpinCashResultChanged={handleAfterSpinResultChanged}
-            leaveMachineClicked={handleLeaveGameClicked}
-          ></Game>}
+      <Header/>
+      <div className="content min-w-96 max-w-lg h-[31rem] p-4 rounded-xl bg-gray-100">
+        {
+          gameActivated ?
+            <Game
+              machineCashAmount={cashState.machine}
+              spinCost={cashState.cost}
+              playerWalletCashAmount={cashState.playersWallet}
+              afterSpinCashResultChanged={handleAfterSpinResultChanged}
+              leaveMachineClicked={handleLeaveGameClicked}
+            ></Game>
+            : <InitSettings cashState={cashState} playClicked={handlePlayClicked}></InitSettings>
+        }
       </div>
     </div>
   );

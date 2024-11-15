@@ -20,7 +20,7 @@ input:focus{
   border: 2px solid rgb(168, 85, 247);
   display: flex;
   gap: 0.5rem;
-  margin: 3rem 0;
+  margin: 3rem 0 4rem;
   border-radius: 1rem;
 }
 

@@ -1,40 +1,41 @@
 import React from 'react';
 import { MaterialSymbol } from 'react-material-symbols';
-import { CashState } from '../types/CashState';
+import { CashState } from '../interfaces/CashState';
+import Button from './Button';
+import Label from './Label';
 
 export default function InitSettings(props: {
-    cashState: CashState,
-    playClicked: (cashState: CashState) => void
+  cashState: CashState,
+  playClicked: (cashState: CashState) => void
 }) {
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const target = e.currentTarget;
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const target = e.currentTarget;
 
-        const fd = new FormData(e.currentTarget);
-        props.playClicked({
-            machine: target.machine.value,
-            cost: target.cost.value,
-            playersWallet: target.player.value
-        });
-    }
+    const fd = new FormData(e.currentTarget);
+    props.playClicked({
+      machine: target.machine.value,
+      cost: target.cost.value,
+      playersWallet: target.player.value
+    });
+  }
 
-    return <form onSubmit={handleSubmit}>
-        <div className="init-settings flex flex-col items-center">
-            <label htmlFor="machine" className="text-purple-500 pb-2">Cash in machine (NOK)</label>
-            <input className="mb-4" type="number" id="machine" name="machine" defaultValue={props.cashState.machine} min={0}></input>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="init-settings flex flex-col items-center">
+        <Label htmlFor="machine">Cash in machine (NOK)</Label>
+        <input className="mb-4" type="number" id="machine" name="machine" defaultValue={props.cashState.machine} min={0}></input>
 
-            <label htmlFor="cost" className="text-purple-500 pb-2">Spin cost (NOK)</label>
-            <input className="mb-4" type="number" id="cost" name="cost" defaultValue={props.cashState.cost} min={0}></input>
+        <Label htmlFor="cost">Spin cost (NOK)</Label>
+        <input className="mb-4" type="number" id="cost" name="cost" defaultValue={props.cashState.cost} min={0}></input>
 
-            <label htmlFor="player" className="text-purple-500 pb-2">Player's wallet (NOK)</label>
-            <input className="mb-4" type="number" id="player" name="player" defaultValue={props.cashState.playersWallet} min={0}></input>
+        <Label htmlFor="player">Player's wallet (NOK)</Label>
+        <input className="mb-4" type="number" id="player" name="player" defaultValue={props.cashState.playersWallet} min={0}></input>
 
-            <div className="actions pt-4">
-                <button
-                    type="submit"
-                    className='flex flex-row gap-2 items-center p-4 rounded-xl bg-purple-500 text-white hover:bg-purple-600'
-                ><MaterialSymbol icon="joystick" size={25}/>Let's play the machine</button>
-            </div>
+        <div className="actions pt-4">
+          <Button type="submit" primary><MaterialSymbol icon="joystick" size={25} /><span>Let's play the machine</span></Button>
         </div>
+      </div>
     </form>
+  );
 }
