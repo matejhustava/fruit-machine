@@ -35,9 +35,9 @@ function App() {
   }
 
   return (
-    <div className="app h-screen flex flex-col items-center justify-center">
+    <div className="app h-screen flex flex-col gap-4 items-center justify-center">
       <Header/>
-      <div className="content min-w-96 max-w-lg h-[31rem] p-4 rounded-xl bg-gray-100">
+      <div className="content min-w-96 max-w-lg h-[29rem] p-4 rounded-xl bg-gray-100">
         {
           gameActivated ?
             <Game

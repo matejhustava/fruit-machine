@@ -95,10 +95,9 @@ export default function Game(props: {
 
   return (
     <div className="game flex flex-col items-center">
-      <Label><span>JACKPOT: </span><b>{props.machineCashAmount}</b><span>NOK</span></Label>
-      <Label><span>PLAYERS WALLET: </span><b>{props.playerWalletCashAmount}</b><span>NOK</span></Label>
-      <Label><span>SPIN COST: </span><b>{props.spinCost}</b><span>NOK</span></Label>
-      <Label><span>FREE SPINS: </span><b>{freeSpins}</b></Label>
+      <Label><span>Jackpot: </span><b>{props.machineCashAmount}</b><span> NOK</span></Label>
+      <Label><span>Player's waller: </span><b>{props.playerWalletCashAmount}</b><span> NOK</span></Label>
+      <Label><span>Free spins: </span><b>{freeSpins}</b></Label>
 
       <div className='machine'>
         {result.map((r, index) => <div key={index} className={'slot color' + r}></div>)}
@@ -110,7 +109,7 @@ export default function Game(props: {
           primary
           onClick={handleSpin}
           disabled={props.playerWalletCashAmount - props.spinCost < 0}
-        ><MaterialSymbol icon="play_arrow" size={25} /><span>Spin it!</span></Button>
+        ><MaterialSymbol icon="play_arrow" size={25} /><span>Spin it for {props.spinCost} NOK!</span></Button>
         <Button
           type="button"
           onClick={props.leaveMachineClicked}
