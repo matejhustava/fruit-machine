@@ -17,12 +17,12 @@ function App() {
     playersWallet: 300
   });
   
-  function handlePlayClicked(newCashState: CashState) {
+  function handlePlayClicked(newCashState: CashState): void {
     setGameActivated((_) => true);
     setCashState((_) => newCashState);
   }
 
-  function handleAfterSpinResultChanged(result: {machine: number, playersWallet: number}) {
+  function handleAfterSpinResultChanged(result: {machine: number, playersWallet: number}): void {
     setCashState((prevState) => ({
       ...prevState,
       machine: result.machine,
@@ -30,7 +30,7 @@ function App() {
     }));
   }
   
-  function handleLeaveGameClicked() {
+  function handleLeaveGameClicked(): void {
     setGameActivated(() => false);
   }
 

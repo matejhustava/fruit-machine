@@ -15,7 +15,7 @@ export default function Game(props: {
   const [result, setResult] = useState([1, 2, 3, 4])
   const [freeSpins, setFreeSpins] = useState(0);
 
-  function handleSpin() {
+  function handleSpin(): void {
     toast.dismiss();
     const newResult = [getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber()];
     setResult(() => [...newResult]);
@@ -25,11 +25,11 @@ export default function Game(props: {
     }
   }
 
-  function getRandomColorNumber() {
-    return Math.floor(Math.random() * (1 - 4) + 4);
+  function getRandomColorNumber(): number {
+    return Math.round(Math.random() * (1 - 4) + 4);
   }
 
-  function evaluateResult(result: Array<number>) {
+  function evaluateResult(result: Array<number>): void {
     let machine = +props.machineCashAmount;
     let playersWallet = +props.playerWalletCashAmount;
     let newFreeSpins = +freeSpins;
@@ -40,7 +40,7 @@ export default function Game(props: {
       machine = 0;
       toast.success("CONGRATULATIONS!!! YOU HAVE WON THE JACKPOT!!!");
     } else if (isHalfJackpot(result)) {
-      const halfOfMachineCash = (machine + cost) / 2;
+      const halfOfMachineCash = Math.round((machine + cost) / 2);
       machine = halfOfMachineCash;
       playersWallet = playersWallet - cost + halfOfMachineCash;
       toast.warning("CONGRATULATIONS!!! YOU HAVE WON HALF OF THE JACKPOT!!!");
@@ -84,6 +84,7 @@ export default function Game(props: {
   }
 
   function isSmallPrize(result: Array<number>): boolean {
+    return false;
     for (let index = 0; index < result.length; index++) {
       if (result[index] === result[index + 1]) {
         return true;
@@ -92,39 +93,41 @@ export default function Game(props: {
     return false;
   }
 
-  return <div className="game flex flex-col items-center">
-    <Label><span>JACKPOT: </span><b>{props.machineCashAmount}</b><span>NOK</span></Label>
-    <Label><span>PLAYERS WALLET: </span><b>{props.playerWalletCashAmount}</b><span>NOK</span></Label>
-    <Label><span>SPIN COST: </span><b>{props.spinCost}</b><span>NOK</span></Label>
-    <Label><span>FREE SPINS: </span><b>{freeSpins}</b></Label>
+  return (
+    <div className="game flex flex-col items-center">
+      <Label><span>JACKPOT: </span><b>{props.machineCashAmount}</b><span>NOK</span></Label>
+      <Label><span>PLAYERS WALLET: </span><b>{props.playerWalletCashAmount}</b><span>NOK</span></Label>
+      <Label><span>SPIN COST: </span><b>{props.spinCost}</b><span>NOK</span></Label>
+      <Label><span>FREE SPINS: </span><b>{freeSpins}</b></Label>
 
-    <div className='machine'>
-      {result.map((r, index) => <div key={index} className={'slot color' + r}></div>)}
-    </div>
+      <div className='machine'>
+        {result.map((r, index) => <div key={index} className={'slot color' + r}></div>)}
+      </div>
 
-    <div className="actions pt-4v flex flex-col items-center gap-4">
-      <Button
-        type="button"
-        primary
-        onClick={handleSpin}
-        disabled={props.playerWalletCashAmount - props.spinCost < 0}
-      ><MaterialSymbol icon="play_arrow" size={25} /><span>Spin it!</span></Button>
-      <Button
-        type="button"
-        onClick={props.leaveMachineClicked}
-      ><MaterialSymbol icon="logout" size={25} /><span>Leave the machine</span></Button>
+      <div className="actions pt-4v flex flex-col items-center gap-4">
+        <Button
+          type="button"
+          primary
+          onClick={handleSpin}
+          disabled={props.playerWalletCashAmount - props.spinCost < 0}
+        ><MaterialSymbol icon="play_arrow" size={25} /><span>Spin it!</span></Button>
+        <Button
+          type="button"
+          onClick={props.leaveMachineClicked}
+        ><MaterialSymbol icon="logout" size={25} /><span>Leave the machine</span></Button>
+      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
-    <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="colored"
-    />
-  </div>
+  );
 }

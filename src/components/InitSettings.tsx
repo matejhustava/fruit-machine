@@ -8,7 +8,7 @@ export default function InitSettings(props: {
   cashState: CashState,
   playClicked: (cashState: CashState) => void
 }) {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     const target = e.currentTarget;
 

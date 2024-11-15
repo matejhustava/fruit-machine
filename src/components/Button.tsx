@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export default function Button(
+const Button = memo(function Button(
   props: {
     primary?: boolean,
     icon?: string,
@@ -17,10 +17,13 @@ export default function Button(
     className += ' cursor-pointer';
     className += props.primary ? ' text-white bg-purple-500 hover:bg-purple-600' : ' text-purple-500 bg-white hover:bg-purple-100';
   }
-  
 
-  return <button
-    onClick={props.disabled ? undefined : props.onClick}
-    className={className}
-  >{props.children}</button>
-}
+  return (
+    <button
+      onClick={props.disabled ? undefined : props.onClick}
+      className={className}
+    >{props.children}</button>
+  );
+});
+
+export default Button;
