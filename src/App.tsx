@@ -7,7 +7,7 @@ import InitSettings from './components/InitSettings';
 import Game from './components/Game';
 import React from 'react';
 import { CashState } from './interfaces/CashState';
-import Header from './components/Header';
+import Header from './UI/Header';
 
 function App() {
   const [gameActivated, setGameActivated] = useState<boolean>(false);

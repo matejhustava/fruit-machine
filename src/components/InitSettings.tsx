@@ -1,8 +1,8 @@
 import React from 'react';
 import { MaterialSymbol } from 'react-material-symbols';
 import { CashState } from '../interfaces/CashState';
-import Button from './Button';
-import Label from './Label';
+import Button from '../UI/Button';
+import Label from '../UI/Label';
 
 export default function InitSettings(props: {
   cashState: CashState,

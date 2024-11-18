@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { MaterialSymbol } from 'react-material-symbols';
 import { ToastContainer, toast } from 'react-toastify';
-import Button from './Button';
-import Label from './Label';
+import Button from '../UI/Button';
+import Label from '../UI/Label';
 
 export default function Game(props: {
   machineCashAmount: number,
