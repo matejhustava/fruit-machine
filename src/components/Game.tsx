@@ -4,7 +4,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 import { ToastContainer, toast } from 'react-toastify';
 import Button from '../UI/Button';
 import Label from '../UI/Label';
-import { isHalfJackpot, isJackpot, isSmallPrize } from '../utils/GameResultUtils';
+import { evaluateResult, getRandomColorNumber } from '../utils/GameResultUtils';
 
 export default function Game(props: {
   machineCashAmount: number,
@@ -20,53 +20,13 @@ export default function Game(props: {
     toast.dismiss();
     const newResult = [getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber()];
     setResult(() => [...newResult]);
-    evaluateResult(newResult);
-    if (freeSpins > 0) {
-      setFreeSpins((prevState) => prevState - 1);
-    }
-  }
 
-  function getRandomColorNumber(): number {
-    return Math.round(Math.random() * (1 - 4) + 4);
-  }
-
-  function evaluateResult(result: Array<number>): void {
-    let cost = freeSpins === 0 ? props.spinCost : 0;
-    let machine = props.machineCashAmount + cost;
-    let playersWallet = props.playerWalletCashAmount - cost;
-    let newFreeSpins = freeSpins;
-    
-    if (isJackpot(result)) {
-      playersWallet = playersWallet + machine;
-      machine = 0;
-      toast.success("CONGRATULATIONS!!! YOU HAVE WON THE JACKPOT!!!");
-    } else if (isHalfJackpot(result)) {
-      const halfOfMachineCash = Math.round((machine + cost) / 2);
-      machine = halfOfMachineCash;
-      playersWallet = playersWallet - cost + halfOfMachineCash;
-      toast.warning("CONGRATULATIONS!!! YOU HAVE WON HALF OF THE JACKPOT!!!");
-    } else if (isSmallPrize(result)) {
-      for (let i = 0; i < 5; i++) {
-        machine = machine - props.spinCost;
-        if (machine < 0) {
-          newFreeSpins = newFreeSpins + 1;
-          machine = machine + props.spinCost;
-        } else {
-          playersWallet = playersWallet + props.spinCost;
-        }
-      }
-      toast.info("YOU HAVE WON SMALL PRIZE!!!");
-    }
-
+    const newValues = evaluateResult(newResult, props.machineCashAmount, props.playerWalletCashAmount, freeSpins, props.spinCost);
     props.afterSpinCashResultChanged({
-      machine,
-      playersWallet
+      machine: newValues.machine,
+      playersWallet: newValues.playersWallet
     });
-    setFreeSpins(() => newFreeSpins)
-
-    if (playersWallet - props.spinCost < 0 && newFreeSpins === 0) {
-      toast.error("YOU DON'T HAVE ENOUGH MONEY FOR ANOTHER SPIN");
-    }
+    setFreeSpins(() => newValues.freeSpins);
   }
 
   return (
