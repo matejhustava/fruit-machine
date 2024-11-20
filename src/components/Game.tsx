@@ -84,7 +84,6 @@ export default function Game(props: {
   }
 
   function isSmallPrize(result: Array<number>): boolean {
-    return false;
     for (let index = 0; index < result.length; index++) {
       if (result[index] === result[index + 1]) {
         return true;
