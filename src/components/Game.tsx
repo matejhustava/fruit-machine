@@ -4,6 +4,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 import { ToastContainer, toast } from 'react-toastify';
 import Button from '../UI/Button';
 import Label from '../UI/Label';
+import { isHalfJackpot, isJackpot, isSmallPrize } from '../utils/GameResultUtils';
 
 export default function Game(props: {
   machineCashAmount: number,
@@ -30,11 +31,11 @@ export default function Game(props: {
   }
 
   function evaluateResult(result: Array<number>): void {
-    let machine = +props.machineCashAmount;
-    let playersWallet = +props.playerWalletCashAmount;
-    let newFreeSpins = +freeSpins;
-    let cost = freeSpins === 0 ? +props.spinCost : 0;
-
+    let cost = freeSpins === 0 ? props.spinCost : 0;
+    let machine = props.machineCashAmount + cost;
+    let playersWallet = props.playerWalletCashAmount - cost;
+    let newFreeSpins = freeSpins;
+    
     if (isJackpot(result)) {
       playersWallet = playersWallet + machine;
       machine = 0;
@@ -46,18 +47,15 @@ export default function Game(props: {
       toast.warning("CONGRATULATIONS!!! YOU HAVE WON HALF OF THE JACKPOT!!!");
     } else if (isSmallPrize(result)) {
       for (let i = 0; i < 5; i++) {
-        machine = machine - +props.spinCost;
+        machine = machine - props.spinCost;
         if (machine < 0) {
           newFreeSpins = newFreeSpins + 1;
-          machine = machine + +props.spinCost;
+          machine = machine + props.spinCost;
         } else {
-          playersWallet = playersWallet + +props.spinCost;
+          playersWallet = playersWallet + props.spinCost;
         }
       }
       toast.info("YOU HAVE WON SMALL PRIZE!!!");
-    } else {
-      machine = machine + cost;
-      playersWallet = playersWallet - cost;
     }
 
     props.afterSpinCashResultChanged({
@@ -69,27 +67,6 @@ export default function Game(props: {
     if (playersWallet - props.spinCost < 0 && newFreeSpins === 0) {
       toast.error("YOU DON'T HAVE ENOUGH MONEY FOR ANOTHER SPIN");
     }
-  }
-
-  function isJackpot(result: Array<number>): boolean {
-    return result.every(val => val === result[0]);
-  }
-
-  function isHalfJackpot(result: Array<number>): boolean {
-    const map = new Map();
-    result.forEach(r => {
-      map.set(r, true);
-    });
-    return result.length === map.size;
-  }
-
-  function isSmallPrize(result: Array<number>): boolean {
-    for (let index = 0; index < result.length; index++) {
-      if (result[index] === result[index + 1]) {
-        return true;
-      }
-    }
-    return false;
   }
 
   return (

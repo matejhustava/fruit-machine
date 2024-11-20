@@ -15,9 +15,9 @@ export default function InitSettings(props: {
 
     const fd = new FormData(e.currentTarget);
     props.playClicked({
-      machine: target.machine.value,
-      cost: target.cost.value,
-      playersWallet: target.player.value
+      machine: +target.machine.value,
+      cost: +target.cost.value,
+      playersWallet: +target.player.value
     });
   }
 
