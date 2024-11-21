@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { MaterialSymbol } from 'react-material-symbols';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Button from '../UI/Button';
 import Label from '../UI/Label';
 import { evaluateResult, getRandomColorNumber } from '../utils/GameResultUtils';
@@ -51,18 +51,6 @@ export default function Game(props: {
           onClick={props.leaveMachineClicked}
         ><MaterialSymbol icon="logout" size={25} /><span>Leave the machine</span></Button>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
     </div>
   );
 }

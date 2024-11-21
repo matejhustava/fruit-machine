@@ -8,6 +8,7 @@ import Game from './components/Game';
 import React from 'react';
 import { CashState } from './interfaces/CashState';
 import Header from './UI/Header';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [gameActivated, setGameActivated] = useState<boolean>(false);
@@ -50,6 +51,18 @@ function App() {
             : <InitSettings cashState={cashState} playClicked={handlePlayClicked}></InitSettings>
         }
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
