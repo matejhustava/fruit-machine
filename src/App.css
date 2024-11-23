@@ -27,7 +27,7 @@ input:focus{
 .slot {
   width: 4rem;
   height: 4rem;
-  border: 2px solid rgb(168, 85, 247);;
+  border: 2px solid rgb(168, 85, 247);
   border-radius: 0.5rem;
 }
 

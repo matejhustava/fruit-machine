@@ -19,8 +19,8 @@ export default function Game(props: {
   function handleSpin(): void {
     toast.dismiss();
     const newResult = [getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber(), getRandomColorNumber()];
-    setResult(() => [...newResult]);
-
+    setResult(newResult);
+    
     const newValues = evaluateResult(newResult, props.machineCashAmount, props.playerWalletCashAmount, freeSpins, props.spinCost);
     props.afterSpinCashResultChanged({
       machine: newValues.machine,
